@@ -66,6 +66,16 @@ go build -o dbacker
 ./dbacker
 ```
 
+Test run:
+```
+./dbacker
+```
+
+Normal run:
+```
+./dbacker -run=true
+```
+
 ### Scheduled Execution (Linux)
 
 Add to crontab for daily execution at 2 AM:
