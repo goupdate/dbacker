@@ -34,6 +34,8 @@ type Config struct {
 
 func main() {
 	run := flag.Bool("run", false, "Normal run instead of test run?")
+	flag.Parse()
+	flag.Usage()
 
 	// Загрузка конфигурации
 	config, err := loadConfig("config.ini")
