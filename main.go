@@ -82,8 +82,13 @@ func loadConfig(filename string) (*Config, error) {
 
 // connectToPostgres устанавливает соединение с PostgreSQL
 func connectToPostgres(cfg *PostgresConfig) (*sql.DB, error) {
-	connStr := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%t",
-		cfg.Host, cfg.Port, cfg.User, cfg.Password, cfg.DBName, cfg.SSL)
+	ssl := "disable"
+	if cfg.SSL {
+		ssl = "require"
+	}
+
+	connStr := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%s",
+		cfg.Host, cfg.Port, cfg.User, cfg.Password, cfg.DBName, ssl)
 
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
