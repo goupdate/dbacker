@@ -18,6 +18,7 @@ type PostgresConfig struct {
 	User     string `json:"user"`
 	Password string `json:"password"`
 	DBName   string `json:"dbname"`
+	SSL      bool   `json:"ssl"`
 }
 
 type BackupConfig struct {
@@ -81,8 +82,8 @@ func loadConfig(filename string) (*Config, error) {
 
 // connectToPostgres устанавливает соединение с PostgreSQL
 func connectToPostgres(cfg *PostgresConfig) (*sql.DB, error) {
-	connStr := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable",
-		cfg.Host, cfg.Port, cfg.User, cfg.Password, cfg.DBName)
+	connStr := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=%t",
+		cfg.Host, cfg.Port, cfg.User, cfg.Password, cfg.DBName, cfg.SSL)
 
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
